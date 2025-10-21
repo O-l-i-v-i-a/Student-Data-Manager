@@ -5,3 +5,15 @@ class StudentForm(forms.ModelForm):
     class Meta:
         model = Student
         fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field_name, field in self.fields.items():
+            css_class = 'form-control'
+            if isinstance(field.widget, forms.Select):
+                field.widget.attrs['class'] = css_class
+            elif isinstance(field.widget, forms.Textarea):
+                field.widget.attrs['class'] = css_class
+            else:
+                field.widget.attrs['class'] = css_class
+
